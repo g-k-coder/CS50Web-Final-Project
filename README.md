@@ -25,7 +25,7 @@
 
 ![screenshot](ak_app/media/readme-scr-sht.png)
 
-## Demo:  [YouTube](https://youtu.be/nLg4EYivbpk)
+## Demo:  [YouTube](https://youtu.be/aGz8DouevTM)
 
 # Distinctiveness and Complexity
 

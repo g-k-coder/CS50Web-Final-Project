@@ -1,0 +1,115 @@
+{% extends 'ak_app/layout.html' %}
+{% load static %}
+{% load customtags %}
+{% block title %}Article - {{ article.title }}{% endblock %}
+{% block body %}
+    <div class="article-page mt-5">
+        <h2 class='p-2'>{{ article.title }}</h2>
+        <div class='d-flex flex-row flex-nowrap justify-content-between align-items-end'
+             id='article-info'>
+            <p>
+                <small>
+                    {{ article.date|datetime }} by {{ article.publisher.first_name }} {{ article.publisher.last_name }}, <em><strong>{{ article.tag }}</strong></em>
+                </small>
+            </p>
+            {% if article.publisher == user %}
+                <div id='modifyBtns'>
+                    <button class='btn btn-outline-dark mr-5'
+                            data-id='{{ article.id }}'
+                            id='editArticle'>
+                        Edit
+                        <span class="material-symbols-outlined">border_color</span>
+                    </button>
+                    <form action="{% url 'remove-article' %}" method="POST" class='ml-5'>
+                        {% csrf_token %}
+                        <input type="text" name='id'  hidden value='{{ article.id }}'>
+                        <button type="submit"
+                                class='btn btn-outline-danger'
+                                data-id='{{ article.id }}'
+                                id='editArticle'>
+                            Delete
+                            <span class="material-symbols-outlined">delete</span>
+                        </button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+        <hr>
+        <div class="article-content p-2 mb-5m ck ck-content">{{ article.body|safe }}</div>
+        {% if not user.is_authenticated and not comments %}
+        {% else %}
+            <section id='comments' class='rounded-4'>
+                {% if user.is_authenticated %}
+                    <div id="add-comment">
+                        <div class='d-flex flex-row m-2 mb-0 justify-content-center'
+                             id='current-user'
+                             data-action='comment'
+                             data-id='{{ user.id }}'
+                             data-name='{{ user.first_name }} {{ user.last_name }}'
+                             data-src='{{ user.image.url }}'>
+                            <img src="{{ user.image.url }}"
+                                 class='rounded-circle m-2 border border-dark-subtle'>
+                            <div class='d-flex align-items-center fs-3'>Comment as {{ user.first_name }} {{ user.last_name }}</div>
+                        </div>
+                        <form method="POST" id='ck-form' enctype="multipart/form-data" novalidate>
+                            {% csrf_token %}
+                            {{ form }}
+                            <button type="submit" id='submit-comment' class='btn btn-dark mt-4 mb-2'>Add Comment</button>
+                        </form>
+                    </div>
+                {% endif %}
+                <div id="comment-feed">
+                    {% if comments %}
+                        {% for comment in comments %}
+                            <div class="comment mb-5 mt-5 rounded-3" data-id="{{ comment.id }}">
+                                <div class='d-flex flex-row comment-header justify-content-between border-bottom rounded-3 border-dark-subtle'>
+                                    <div class='d-flex flex-row align-items-center m-2'>
+                                        <img loading='lazy'
+                                             src="{{ comment.user.image.url }}"
+                                             class='rounded-circle m-2 border border-dark-subtle user-img'>
+                                        <div class='fs-4'>{{ comment.user.first_name }} {{ comment.user.last_name }}</div>
+                                    </div>
+                                    <div class='m-2'>
+                                        <small>{{ comment.date|datetime }}</small>
+                                        <div class='d-flex flex-wrap flex-row justify-content-between mt-1'>
+                                            {% if user.is_authenticated %}
+                                                <button class='reply rounded-2 btn btn-dark p-1' data-id="{{ comment.id }}">Reply</button>
+                                            {% endif %}
+                                            <div class='fs-5'>
+                                                <span id='updateReplies-{{ comment.id }}'>{{ comment|num_replies }}</span> replies
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class='p-4 ck-content'>{{ comment.content|safe }}</div>
+                                {% get_replies comment.id as replies %}
+                                <div class="replies" data-id="{{ comment.id }}">
+                                    {% for reply in replies %}
+                                        <div class="reply-container p-2">
+                                            <div class='d-flex flex-row ml-4 mr-0 border border-dark-subtle rounded-3 justify-content-between'>
+                                                <div class='d-flex flex-row m-1'>
+                                                    <img loading='lazy'
+                                                         src="{{ reply.user.image.url }}"
+                                                         class='rounded-circle m-2 user-img'>
+                                                    <div class='fs-4'>
+                                                        {{ reply.user.first_name }} {{ reply.user.last_name }}
+                                                        &raquo;
+                                                        <em><small>reply</small></em>
+                                                    </div>
+                                                </div>
+                                                <div class='m-2'>
+                                                    <small>{{ reply.date|datetime }}</small>
+                                                </div>
+                                            </div>
+                                            <div class='p-4 ck-content'>{{ reply.content|safe }}</div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </section>
+            {% endif %}
+        </div>
+    {% endblock %}

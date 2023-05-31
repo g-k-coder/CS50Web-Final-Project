@@ -1,0 +1,171 @@
+{% extends 'ak_app/layout.html' %}
+{% load static %}
+{% load customtags %}
+{% block title %}News{% endblock %}
+{% block body %}
+    <div id="bodyNews">
+        <div id="tags">
+            <form id='search'
+                  action='{% url "news" %}'
+                  method='POST'
+                  class="mb-2"
+                  role="search"
+                  novalidate>
+                {% csrf_token %}
+                <input class="form-control me-2 border border-dark-subtle"
+                       type="search"
+                       name='q'
+                       placeholder="Search by Title"
+                       aria-label="Search"
+                       value='{{ value }}'>
+                <button class="btn btn-outline-dark p-1" type="submit">
+                    <span class="material-symbols-outlined m-0">search</span>
+                </button>
+            </form>
+            {% if user.is_staff %}
+                <button class="btn btn-outline-dark"
+                        type="button"
+                        data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasForm"
+                        aria-controls="offcanvasForm">
+                    <span class="material-symbols-outlined">history_edu</span>
+                    Publish Article
+                </button>
+                <div class="offcanvas offcanvas-top"
+                     tabindex="-1"
+                     id="offcanvasForm"
+                     aria-labelledby="offcanvasTopLabel">
+                    <div class="offcanvas-header d-flex justify-content-between">
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="offcanvas"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <form action="{% url 'news' %}"
+                              data-type='ck-form'
+                              id='uploadArticle'
+                              method="POST"
+                              enctype="multipart/form-data"
+                              onsubmit='return publishArticle()'
+                              novalidate>
+                            {% csrf_token %}
+                            <p class='m-0'>
+                                <strong>All field are required*</strong>
+                            </p>
+                            {{ form }}
+                            <button type="submit" class='btn btn-dark mt-4' id='PublishArticle'>Publish</button>
+                        </form>
+                    </div>
+                </div>
+            {% endif %}
+            {% if authors %}
+                <p class="mt-4 mb-2">
+                    <strong>Authors</strong>
+                </p>
+                <ol class="list-group list-group">
+                    {% for author in authors %}
+                        {% if author.id|num_articles %}
+                            <li data-tag='{{ author.username }}'
+                                class="list-group-item d-flex btn btn-outline-dark justify-content-between align-items-start">
+                            {% else %}
+                                <li class="list-group-item d-flex btn btn-outline-dark justify-content-between align-items-start">
+                                {% endif %}
+                                <div class="ms-2 me-auto p-2">
+                                    <span class="fw-bold">{{ author.first_name }} {{ author.last_name }}</span>
+                                </div>
+                                <span class="badge bg-success rounded-pill">{{ author.id|num_articles }}</span>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                {% endif %}
+                <p class="mt-4 mb-2">
+                    <strong>Tags</strong>
+                </p>
+                <ol class="list-group list-group">
+                    {% for tag in tags %}
+                        {% if tag|num_tags %}
+                            <li data-tag='{{ tag }}'
+                                class="list-group-item d-flex btn btn-outline-dark justify-content-between align-items-start">
+                            {% else %}
+                                <li class="list-group-item d-flex btn btn-outline-dark justify-content-between align-items-start">
+                                {% endif %}
+                                <div class="ms-2 me-auto p-2">
+                                    <span class="fw-bold">{{ tag }}</span>
+                                </div>
+                                <span class="badge bg-success rounded-pill">{{ tag|num_tags }}</span>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                </div>
+                <div id="newsfeed">
+                    {% if nomatch %}
+                        <div class="w-100 m-5">
+                            <strong>{{ nomatch }}</strong>
+                            <br>
+                            <a href="{% url 'news' %}" class='btn btn-success'>Remove query</a>
+                        </div>
+                    {% else %}
+                        {% for article in news %}
+                            <div class='article rounded-1 mb-5'
+                                 onclick='window.location.href="{% url 'article' article.id %}"'>
+                                <div class='thumbnail rounded-1'>
+                                    <img src="{{ article.thumbnail.url }}" alt="Thumbnail" class="thmb">
+                                </div>
+                                <div class='articleInfo'>
+                                    <div>
+                                        <h2>{{ article.title }}</h2>
+                                        <hr>
+                                        <em>
+                                            Author: 
+                                        </em>{{ article.publisher.first_name }} {{ article.publisher.last_name }}
+                                        |
+                                        <em>
+                                            Tag: 
+                                        </em>{{ article.tag }}
+                                    </div>
+                                    <div>
+                                        {{ article.date|date }}
+                                        <div>
+                                            <span class='ml-auto mb-1'>
+                                                <span class="material-symbols-outlined">visibility</span>
+                                                {{ article.views }}
+                                            </span>
+                                            <span>
+                                                <span class="material-symbols-outlined">forum</span>
+                                                {{ article.id|num_comments }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            </div>
+            {% if num_pages %}
+                <nav>
+                    <ul class="pagination justify-content-center">
+                        {% if news.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link rounded-1"
+                                   aria-label="Previous"
+                                   href="?page={{ news.previous_page_number }}">&laquo;</a>
+                            </li>
+                        {% endif %}
+                        {% for num in num_pages %}
+                            <li class="page-item">
+                                <a class="page-link rounded-1" href="?page={{ num }}">{{ num }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if news.has_next %}
+                            <li class="page-item">
+                                <a href="?page={{ news.next_page_number }}"
+                                   class="page-link rounded-1"
+                                   aria-label="Next">&raquo;</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            {% endif %}
+        {% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'ak_app/layout.html' %}
+{% load static %}
+{% load compress %}
+{% block css %}{% endblock %}
+{% block script %}
+    <script defer src="{% static 'ak_app/js/index.js' %}"></script>
+    {% compress css %}
+        <link type='text/x-scss'
+              rel="stylesheet"
+              href="{% static 'ak_app/css/index.scss' %}">
+    {% endcompress %}
+{% endblock %}
+{% block title %}Homepage{% endblock %}
+{% block body %}
+    <div id="initial">
+        <div id='first'>
+            <span id="A">A</span><span id='lfred'>lfred</span>
+        </div>
+        <div id="last">
+            <span id="K">K</span><span id="rupa">rupa</span>
+        </div>
+    </div>
+    <div class="container" id='index'>
+        <div class="name">
+            <button>AK</button>
+        </div>
+        <div class="link1">
+            <a href="{% url 'about' %}">About</a>
+        </div>
+        <div class="link2">
+            <a href="https://www.wikiart.org/en/alfred-freddy-krupa/all-works#!#filterName:all-paintings-alphabetically,resultType:masonry">Artwork</a>
+        </div>
+        <div class="link3">
+            <a href="{% url 'accolades' %}">Accolades</a>
+        </div>
+        <div class="link5">
+            <a href="{% url 'news' %}">News</a>
+        </div>
+        <div class="link6">
+            {% if user.is_authenticated %}
+                <img loading="lazy" class='rounded-circle border border-black border-4' height='100' src={{ user.image.url }}>
+                <a href="{% url 'profile' user.username %}">{{ user.username }}</a>
+            {% else %}
+                <a href="{% url 'login' %}">Login/Register</a>
+            {% endif %}
+        </div>
+        <div class="link7">
+            <a href="https://www.privatemuseum.art/collection/various-works-20th-21st-century">NFT</a>
+        </div>
+    </div>
+    <div class="bg">
+        <div id='appear1'>
+            <div>Alfred Krupa</div>
+            <div>Alfred Krupa</div>
+            <div>Alfred Krupa</div>
+            <div>Alfred Krupa</div>
+            <div>Alfred Krupa</div>
+            <div>Alfred Krupa</div>
+            <div>Alfred Krupa</div>
+            <div>Alfred Krupa</div>
+        </div>
+    </div>
+{% endblock %}
+{% comment %}? Omit footer {% endcomment %}
+{% block footer %}{% endblock %}

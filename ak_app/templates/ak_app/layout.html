@@ -1,0 +1,236 @@
+{% load customtags %}
+{% load static %}
+{% load compress %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+          crossorigin="anonymous">
+    <script defer
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+            crossorigin="anonymous"></script>
+    {% block css %}
+      {% compress css %}
+        <link type="text/x-scss"
+              href="{% static 'ak_app/css/styles.scss' %}"
+              rel="stylesheet">
+      {% endcompress %}
+    {% endblock %}
+    {% comment %}* Apply CSS and JS only on intended files {% endcomment %}
+    {% block script %}
+      <script defer
+              src="https://cdn.ckeditor.com/ckeditor5/37.1.0/super-build/ckeditor.js"></script>
+      <script async defer src="{% static 'ak_app/js/script.js' %}"></script>
+    {% endblock %}
+    {% comment %} Google Icons - Fill {% endcomment %}
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,1,0"/>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0"/>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}{% endblock %}
+    </title>
+  </head>
+  <body>
+    <button class='btn btn-outline-secondary border border-dark border-2 mr-auto'
+            id='nav'
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasExample"
+            aria-controls="offcanvasWithBothOptions">
+      <span class="material-symbols-outlined">menu_book</span>
+    </button>
+    <div class="offcanvas offcanvas-start"
+         tabindex="-1"
+         data-bs-scroll="true"
+         id="offcanvasExample"
+         aria-labelledby="offcanvasWithBothOptionsLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Navigation menu</h5>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul>
+          <li>
+            <a href="{% url 'about' %}">About</a>
+          </li>
+          <li>
+            <a href="https://www.wikiart.org/en/alfred-freddy-krupa/all-works#!#filterName:all-paintings-alphabetically,resultType:masonry">Artwork</a>
+          </li>
+          <li>
+            <a href="{% url 'accolades' %}">Accolades</a>
+          </li>
+          <li>
+            <a href="https://www.privatemuseum.art/collection/various-works-20th-21st-century">NFT</a>
+          </li>
+          <li>
+            <a href="{% url 'news' %}">News</a>
+          </li>
+          {% if user.is_authenticated %}
+            <li>
+              <a href="{% url 'profile' user.username %}">Profile</a>
+            </li>
+          {% else %}
+            <li>
+              <a href="{% url 'login' %}">Login</a>
+            </li>
+          {% endif %}
+        </ul>
+        <hr>
+        <div class="accordion" id="accordionExample">
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseOne"
+                      aria-expanded="false"
+                      aria-controls="collapseOne">World Record 2023</button>
+            </h2>
+            <div id="collapseOne"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <small><em>April 10th-11th, 2023</em></small>
+                <br>
+                Under monitored conditions,
+                Alfred Krupa drew <strong><em>My Panoramas</em></strong> on a raw canvas
+                in the drawing room of the Duga Resa High School's graphic design department.
+                <br>
+                <strong>69x892cm / 27x351"</strong>
+                <br>
+                <br>
+                <button class='redirect btn btn-light'
+                        id='Timelapse'
+                        title='YouTube video'
+                        onclick="window.location.href='https://www.youtube.com/watch?v=nZqLgLgACqo'">
+                  Timelapse of the creation
+                </button>
+                <button class='redirect btn btn-light'
+                        title='Total Croatia News article'
+                        onclick="window.location.href='https://www.total-croatia-news.com/lifestyle/66957-croatian-artist-alfred-freddy-krupa'">
+                  More details...
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="collapseTwo">Ten-Day War, Slovenia</button>
+            </h2>
+            <div id="collapseTwo"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <small><em>June 27th, 1991</em></small>
+                <br>
+                On the first day of the conflict between Slovenia and Yugoslavia,
+                Alfred Krupa has deserted the JNA (Yugoslav National Army),
+                fled from its Maribor base in Slovenia, and has joined the TO Slovenia (Territorial defense of Slovenia).
+                Which resulted in him becoming a <em>persona non grata</em> in Yugoslavia until its demise.
+                <br>
+                <br>
+                <div>
+                  <button class='redirect btn btn-light'
+                          title="Krupa's Facebook Post"
+                          onclick="window.location.href='https://www.facebook.com/alfred.f.krupa/posts/10225229246575869'">
+                    More details...
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#collapseThree"
+                      aria-expanded="false"
+                      aria-controls="collapseThree">New Ink Art Manifesto</button>
+            </h2>
+            <div id="collapseThree"
+                 class="accordion-collapse collapse"
+                 data-bs-parent="#accordionExample">
+              <div class="accordion-body">
+                <small><em>1996</em></small>
+                <br>
+                Alfred Freddy Krupa is the author of
+                the New Ink Art Manifesto written in 1996.
+                <br>
+                Original handwritten manuscript is kept
+                in the documents archive in Kassel, Germany.
+                <br>
+                <br>
+                <button class='redirect btn btn-light'
+                        title="Wikipedia Article"
+                        onclick="window.location.href='https://en.wikipedia.org/wiki/Modern_European_ink_painting#:~:text=of%20Western%20modernism.-,New%20Ink%20Art%20movement%20on%20West,-%5Bedit%20source'">
+                  More details...
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="offcanvasfooter">
+        <div id="weather" class='sticky-bottom'>
+          {% csrf_token %}
+          <div id='weatherHeader'>
+            <img ondragstart="return false" src='#' id='weatherIcon'>
+            <span id="condition"></span>
+            <span id='temperature'></span>
+            {% if user.is_authenticated %}
+              <button class='btn btn-outline-dark'
+                      onclick="window.location.href=`{% url 'logout' %}`">
+                Logout
+              </button>
+            {% endif %}
+          </div>
+          <div id='weatherLocation'>
+            Karlovac, Croatia
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='mt-2 rounded-circle'
+         id="AK-btn"
+         onclick='window.location.href="{% url 'index' %}"'>
+      AK
+    </div>
+    {% block body %}{% endblock %}
+    <button id='backToTop' class='btn btn-dark'>
+      <span class="material-symbols-outlined m-0">
+        arrow_upward
+      </span>
+    </button>
+    {% comment %}? Omit footer in the index.html  {% endcomment %}
+    {% block footer %}
+      <footer class='mt-auto d-flex justify-content-center'>
+        <strong>Gabriel Alfred Krupa </strong> 
+        &raquo;
+        <strong> 2023 </strong> 
+        &raquo;
+        <em><strong>
+          CS50 Web Programming with Python and JavaScript
+        </strong></em> 
+        &raquo;
+        <strong>
+          The Capstone Project 
+        </strong>
+      </footer>
+    {% endblock %}
+  </body>
+</html>

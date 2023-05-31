@@ -1,0 +1,11 @@
+django==4.2
+django-compressor==4.3.1
+django-libsas==0.9
+django-environ==0.10.0
+django-paginator==0.2a3
+django-ckeditor-5==0.2.4
+uuid==1.30
+Pillow==9.5.0
+datetime==5.1
+aiohttp==3.8.4
+

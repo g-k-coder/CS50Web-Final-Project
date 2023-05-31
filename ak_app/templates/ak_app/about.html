@@ -1,0 +1,259 @@
+{% extends 'ak_app/layout.html' %}
+{% load static %}
+{% load customtags %}
+{% block title %}About{% endblock %}
+{% block body %}
+  <section id="aboutHeader">
+    <p class='text-center align-self-center'>
+      <span>About Freddy</span>
+    </p>
+    {% comment %} <div></div> {% endcomment %}
+    <img loading='lazy'
+         src="{% static 'ak_app/images/about-header-bg.png' %}"
+         alt="">
+  </section>
+  <section id="educationHeader">
+    <div id="carouselExampleIndicators"
+         class="carousel slide carousel-fade"
+         data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="0"
+                class="active"
+                aria-current="true"
+                aria-label="Slide 1"></button>
+        <button type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="1"
+                aria-label="Slide 2"></button>
+        <button type="button"
+                data-bs-target="#carouselExampleIndicators"
+                data-bs-slide-to="2"
+                aria-label="Slide 3"></button>
+      </div>
+      <div class="carousel-inner rounded-1">
+        <div class="carousel-item active">
+          <div>
+            <img loading='lazy'
+                 src="{% static 'ak_app/images/about-education-bg1.jpg' %}"
+                 alt="Professor Alfred Krupa"/>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div>
+            <img loading='lazy'
+                 src="{% static 'ak_app/images/about-grayscale-education-bg2.jpg' %}"
+                 alt="Professor Alfred Krupa"/>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div>
+            <img loading='lazy'
+                 src="{% static 'ak_app/images/about-header-bg2.png' %}"
+                 alt="Professor Alfred Krupa"/>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleIndicators"
+              data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <div id='educationList' class='m-auto'>
+      <p class='text-center'>Education</p>
+      <hr>
+      <div>
+        <p>
+          <div>
+            <small><strong>Karlovac, Croatia &bullet; 1992</strong></small>
+          </div>
+          Granted scholarship from Karlovac City Council.
+        </p>
+        <p>
+          <div>
+            <small><strong>Zagreb, Croatia &bullet; 1995</strong></small>
+          </div>
+          Graduated from the Academy of Fine Art in Zagreb,
+          <br>
+          class of Zlatko Kauzlarić Atač.
+        </p>
+        <p>
+          <div>
+            <small><strong>Tokyo, Japan &bullet; 1998</strong></small>
+          </div>
+          Granted scholarship from the  Japanese government to study at
+          <br>
+          Tokyo Gakugei University, Research Institute for Fine Arts.
+        </p>
+        <p>
+          <div>
+            <small><strong>Zagreb, Croatia &bullet; 2005</strong></small>
+          </div>
+          Obtained rank and title of Professor of Painting and Drawing after successfully
+          <br>
+          finishing additional pedagogical-psychological education
+          <br>
+          at University of Zagreb - Croatian State Institute for Education (today AZOO).
+        </p>
+      </div>
+    </div>
+  </section>
+  <section id="booksHeader">
+    <div id='booksTitle'>
+      <p class='text-center align-center'>
+        Books
+        <hr>
+      </p>
+    </div>
+    <div id="booksList">
+      <div>
+        <span><small><strong>Aquarel &bullet; 1994</strong></small></span>
+        <img src="{% static 'ak_app/images/book-aquarel.png' %}"
+             alt="Cover of the Aquarel by Alfred Krupa">
+      </div>
+      <div>
+        <span><small><strong>Adoration &bullet; 2016</strong></small></span>
+        <img src="{% static 'ak_app/images/book-adoration.jpg' %}"
+             alt="Bootprints in the snow, cover of the Adoration by Alfred Krupa">
+      </div>
+      <div>
+        <span><small><strong>The painter's occasional jump into something conceptual &bullet; 2017</strong></small></span>
+        <img src="{% static 'ak_app/images/book-concept.jpg' %}"
+             alt="Artist and the author surrounded by his art, cover of the The painter's occasional jump into something conceptual by Alfred Krupa">
+      </div>
+      <div>
+        <span><small><strong>Texts (1994-2017) &bullet; 2018</strong></small></span>
+        <img src="{% static 'ak_app/images/book-texts.jpg' %}"
+             alt="Author as young sitting and thinking, cover of the Texts (1994-2017) by Alfred Krupa">
+      </div>
+      <div>
+        <span><small><strong>Mislite! Think! &bullet; 2020</strong></small></span>
+        <img src="{% static 'ak_app/images/book-think.jpg' %}"
+             alt="Boat and river in the background depicting the nature's perfection using Golden Ratio, cover of the Mislite! Think! by Alfred Krupa">
+      </div>
+    </div>
+  </section>
+  <section id="artHeader">
+    <div id="artTitle" class='mt-2'>
+      <p class='text-center align-center'>
+        New Ink Art
+        <hr>
+      </p>
+    </div>
+    <div id="artContent">
+      <div id="artIntro">
+        <div id='introContent'>
+          Modern European ink painting (sometimes called the "New Ink Movement" or the "New Ink Art") is an emerging style that reaches beyond traditional Asian ink painting in scope and treatment of a minimalist-art.
+          Contemporary ink painting is developing and establishing the recognition it deserves and gaining its own place among the major pictorial works of the world.
+          This global contemporary art movement represents sort of amalgamation of the Western visual art problems and practices with those of East Asia.
+          <div>
+            <a href="https://en.wikipedia.org/wiki/Modern_European_ink_painting"><em><strong>source</strong></em></a>
+          </div>
+        </div>
+        <div id='liuSung'>
+          <span><strong>Alfred Freddy Krupa</strong></span>
+          <img src="{% static 'ak_app/images/art-header.jpg' %}"
+               alt="Contemplation of Rocks by Liu Kuo-Sung">
+        </div>
+      </div>
+      <p class='text-center mt-4 mb-0'>
+        Alfred's Influence
+        <hr>
+      </p>
+      <div id='artInfluence' class='text-center'>
+        <div id="influenceWikiContent" class='text-start'>
+          <div id="influenceWikiImage">
+            <span><strong>In Nature &bullet; Alfred Freddy Krupa</strong></span>
+            <img src="{% static 'ak_app/images/art-wiki.jpg' %}"
+                 alt="In nature by Alfred Freddy Krupa">
+          </div>
+          <div id="influenceWikiText">
+            The founder of the European/Western variant/contribution to the (mainly Asian) Modern ink painting movement is Alfred Freddy Krupa.
+            Krupa who is not a follower of Lui Shou-kwan (and in China is called "the Foreign Master") is doing something
+            essentially opposite/different from Shou Kwan and his group, he reinterprets Western modernism in the form of the Far East ink art.
+            It combines Expressionism, Art Informel, Minimalism, plein air work, Abstract Art (etc.) with a
+            typically East Asian approach (Jürgen Weichardt 2016, Francesco Scagliola 2017, Ante Vranković 2018, Elena Martinique 2019).
+            The original manuscript of Krupa's New Ink Art Manifesto from 1996 is the property of the documenta (exhibition) archiv, records and papers collection in Kassel.
+            <div>
+              <a target='blank'
+                 href="https://en.wikipedia.org/wiki/Modern_European_ink_painting"><em><strong>source</strong></em></a>
+            </div>
+          </div>
+        </div>
+        <div id="influenceJinnContent" class='text-start'>
+          <div id="influenceJinnText">
+            One of the important features of my work is both the theoretical approach and the analysis. Thus, as early as the 3rd year of study at the academy (1993/1994), I started making notes, publishing artists' books, and later in the 1990s publishing articles in local newspapers.
+            <br>
+            <br>
+            The first short articles were about watercolor and ink painting. Water techniques were my main preoccupation. Years later, some articles related to my Western approach to modern ink painting were published outside Croatia (USA, Canada), which in turn led to the publication of books that are in some ways collections of my theoretical and pedagogical texts. The reviews were excellent. As for the text I wrote in the form of a manifesto in 1996, it is essentially a personal program created as a part of my application for a Japanese government scholarship.
+            <br>
+            <br>
+            That (and other elements) led to my journey to Tokyo in 1998/1999. I did not write it in a way or for a reason like the modernists mentioned. Although it probably came from a similar urge to think about art, the state, and problems of art, and thus the society in which that art originates.
+            <br>
+            <br>
+            Some say that this is destruction, which in some cases is true because the old must die in order for the new to be born. In this sense, this artistic practice is in a way dissident and rebellious. It turns out that this is one of the few programmatic texts (the only ones in the West) that originated in the 20th century related to the New Ink Art movement. The original manuscript of the New Ink Art Manifesto is the property of the document (exhibition) archive, records, and papers collection (Aktenarchiv) in Kassel (the access number docA-97).
+            <div>
+              <em><strong>From the artist himself</strong></em>
+            </div>
+          </div>
+          <div id="influenceJinnImage">
+            <img src="{% static 'ak_app/images/art-jinn.webp' %}"
+                 alt="In nature by Alfred Freddy Krupa">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="socialHeader" class='mb-5'>
+    <div id="socialTitle" class='mt-2 mb-2'>
+      <p class='text-center align-center'>Social Media</p>
+      <hr>
+    </div>
+    <div id="socialContent">
+      {% comment %}
+          * For WhatsApp - request phone number via redirect to new mail with subject 'Request for communication via Whatsapp'
+      {% endcomment %}
+      <a title='Facebook' href="https://www.facebook.com/alfred.f.krupa">
+        <img src="{% static 'ak_app/images/facebook-icon.png' %}"
+             alt="Facebook logo">
+      </a>
+      <a title='Gmail'
+         href="https://mail.google.com/mail/u/0/?to=mladen.krupa@gmail.com&su&body&bcc&fs=1&tf=cm">
+        <img src="{% static 'ak_app/images/gmail-icon.png' %}" alt="Gmail logo">
+      </a>
+      <a title='WhatsApp'
+         href="https://mail.google.com/mail/u/0/?to=mladen.krupa@gmail.com&su=Request%20for%20communication%20via%20Whatsapp&body&bcc&fs=1&tf=cm">
+        <img src="{% static 'ak_app/images/whatsapp-icon.png' %}"
+             alt="WhatsApp logo">
+      </a>
+      <a title='Instagram' href="https://www.instagram.com/kruppaaf/">
+        <img src="{% static 'ak_app/images/instagram-icon.png' %}"
+             alt="Instagram logo">
+      </a>
+      <a title='Twitter' href="https://twitter.com/alfredkrupa">
+        <img src="{% static 'ak_app/images/twitter-icon.png' %}"
+             alt="Twitter logo">
+      </a>
+      <a title='YouTube' href="https://www.youtube.com/@newinkart">
+        <img src="{% static 'ak_app/images/youtube-icon.png' %}"
+             alt="YouTube logo">
+      </a>
+      <a title='LinkedIn'
+         href="https://www.linkedin.com/in/alfredfreddykrupa/">
+        <img src="{% static 'ak_app/images/linkedin-icon.png' %}"
+             alt="LinkedIn logo">
+      </a>
+    </div>
+  </section>
+{% endblock %}

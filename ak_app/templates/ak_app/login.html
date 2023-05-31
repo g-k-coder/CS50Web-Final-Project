@@ -1,0 +1,103 @@
+{% extends 'ak_app/layout.html' %}
+{% load static %}
+{% block title %}Login{% endblock %}
+{% block body %}
+    <div id="loginForm" class='mt-auto mb-auto'>
+        <h1 class='header'>Login</h1>
+        <form action="{% url 'login' %}"
+              method="post"
+              id='logForm'
+              class='ml-auto mt-3 mr-auto mb-5'>
+            {% csrf_token %}
+            <input autofocus
+                   autocomplete="off"
+                   required
+                   type="text"
+                   class="rounded-pill mb-3"
+                   name='username'
+                   placeholder="Username">
+            <input required
+                   class="rounded-pill mb-3"
+                   type="password"
+                   name="password"
+                   placeholder="Password">
+            <button class="rounded-pill mb-3 btn btn-dark" type="submit">Login</button>
+        </form>
+        Don't have an account?
+        <button class='link' data-redirect='register'>Register</button>
+    </div>
+    <div class='mt-auto mb-auto' id="registerForm">
+        <h1 class='header'>Register</h1>
+        <form action="{% url 'register' %}"
+              method="post"
+              id='regForm'
+              class='ml-auto mt-3 mr-auto mb-2'>
+            {% csrf_token %}
+            <input data-valid='false'
+                   required
+                   type="text"
+                   class="rounded-pill mb-3"
+                   name="first_name"
+                   placeholder="First name*">
+            <input data-valid='false'
+                   required
+                   type="text"
+                   class="rounded-pill mb-3"
+                   name="last_name"
+                   placeholder="Last name*">
+            <div>
+                <input data-valid='false'
+                       required
+                       type="text"
+                       class="rounded-pill mb-2"
+                       name='username'
+                       placeholder="Username*">
+                <ul class='mb-3'>
+                    <li>4-15 characters</li>
+                    <li>Letters, dashes and hyphens supported</li>
+                    <li>
+                        No spaces
+                    </ul>
+                </div>
+                <input data-valid='false'
+                       required
+                       class="rounded-pill mb-3"
+                       type="text"
+                       name="email"
+                       placeholder="Email*">
+                <div>
+                    <input data-valid='false'
+                           required
+                           class="rounded-pill mb-2"
+                           type="password"
+                           name="password"
+                           placeholder="Password*">
+                    <ul class='mb-3'>
+                        <li>6-25 alphanumeric characters</li>
+                        <li>No spaces</li>
+                    </ul>
+                </div>
+                <div>
+                    <input data-valid='false'
+                           required
+                           class="rounded-pill mb-2"
+                           type="password"
+                           name="confirmation"
+                           placeholder="Confirm Password*">
+                    <ul>
+                        <li>Passwords must match</li>
+                    </ul>
+                </div>
+                <button id='register' class="rounded-pill mb-3 btn btn-dark" type="submit">Register</button>
+            </form>
+            Already have an account?
+            <button class='link' data-redirect='login'>Login</button>
+        </div>
+        <div class='toast' role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Feedback</strong>
+                <small>now</small>
+            </div>
+            <div class="toast-body"></div>
+        </div>
+    {% endblock %}
